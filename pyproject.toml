@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.12"
 pipe = "^2.2"
 requests = "^2.32.3"
+ipykernel = "^6.29.5"
 
 
 [build-system]

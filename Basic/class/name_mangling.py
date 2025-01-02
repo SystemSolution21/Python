@@ -8,7 +8,7 @@ class Mapping:
         self.item_list = []
         self.__update(iterable=iterable)
 
-    def update(self, iterable):
+    def update(self, iterable) -> None:
         for item in iterable:
             self.item_list.append(item)
 
@@ -17,7 +17,7 @@ class Mapping:
 
 class MappingSubclass(Mapping):
 
-    def update(self, keys, values):
+    def update(self, keys, values) -> None:
         """provides new signature for update()
         but does not break __init__()
 

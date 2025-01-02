@@ -20,7 +20,7 @@ class Employee:
     def email(self) -> str:
         return f"{self.fname.lower()}.{self.lname.lower()}@company.com"
 
-    def pay_raise(self):
+    def pay_raise(self) -> None:
         self.pay = int(self.pay * self.pay_raise_rate)
 
     def monthly_schedule(self, month) -> str:
