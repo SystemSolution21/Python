@@ -3,7 +3,9 @@ from .helpers import math_operations
 from .utils import validators
 
 
-# Use "python -m import_from_statement.relative_import" to run this script
+# Use "python -m import_from_statement.relative_import" to run this script.
+# By python convention, the relative import will raise error if the script run directly.
+# __init__.py file must be empty to avoid circular import.
 def main() -> None:
 
     print(sys.path[0])
