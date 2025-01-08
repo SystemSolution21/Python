@@ -6,6 +6,7 @@ for n in range(2, 10):
             print(n, "equals", x, "*", n // x)
             break
 
+
 # Even and Odd numbers
 for n in range(2, 10):
     if n % 2 == 0:  # if even number
