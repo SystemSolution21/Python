@@ -1,4 +1,4 @@
-# Counter class with dunder methods
+# Counter class using dunder methods
 class Counter:
     def __init__(self) -> None:
         self.count = 0
