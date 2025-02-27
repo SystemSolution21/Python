@@ -6,11 +6,11 @@ from employee import Employee
 class TestEmployee(unittest.TestCase):
 
     @classmethod
-    def setUpClass(cls):
+    def setUpClass(cls) -> None:
         print("setUpClass")
 
     @classmethod
-    def tearDownClass(cls):
+    def tearDownClass(cls) -> None:
         print("tearDownClass")
 
     def setUp(self) -> None:
@@ -21,7 +21,16 @@ class TestEmployee(unittest.TestCase):
     def tearDown(self) -> None:
         print("tearDown\n")
 
-    def test_fullname(self):
+    def test_init(self) -> None:
+        print("test_init")
+        self.assertEqual(first=self.emp1.fname, second="Corey")
+        self.assertEqual(first=self.emp1.lname, second="Schafer")
+        self.assertEqual(first=self.emp1.pay, second=50000)
+        self.assertEqual(first=self.emp2.fname, second="Sue")
+        self.assertEqual(first=self.emp2.lname, second="Smith")
+        self.assertEqual(first=self.emp2.pay, second=60000)
+
+    def test_fullname(self) -> None:
         print("test_fullname")
         self.assertEqual(first=self.emp1.fullname, second="Corey Schafer")
         self.assertEqual(first=self.emp2.fullname, second="Sue Smith")
@@ -32,7 +41,7 @@ class TestEmployee(unittest.TestCase):
         self.assertEqual(first=self.emp1.fullname, second="John Schafer")
         self.assertEqual(first=self.emp2.fullname, second="Jane Smith")
 
-    def test_email(self):
+    def test_email(self) -> None:
         print("test_email")
         self.assertEqual(first=self.emp1.email, second="corey.schafer@company.com")
         self.assertEqual(first=self.emp2.email, second="sue.smith@company.com")
@@ -43,7 +52,7 @@ class TestEmployee(unittest.TestCase):
         self.assertEqual(first=self.emp1.email, second="john.schafer@company.com")
         self.assertEqual(first=self.emp2.email, second="jane.smith@company.com")
 
-    def test_pay_raise(self):
+    def test_pay_raise(self) -> None:
         print("test_pay_raise")
         self.emp1.pay_raise()
         self.emp2.pay_raise()
@@ -51,13 +60,13 @@ class TestEmployee(unittest.TestCase):
         self.assertEqual(first=self.emp1.pay, second=52500)
         self.assertEqual(first=self.emp2.pay, second=63000)
 
-    def test_monthly_schedule(self):
+    def test_monthly_schedule(self) -> None:
 
         with patch("employee.requests.get") as mocked_get:
             mocked_get.return_value.ok = True
             mocked_get.return_value.text = "Success"
 
-            schedule = self.emp1.monthly_schedule(month="May")
+            schedule: str = self.emp1.monthly_schedule(month="May")
             mocked_get.assert_called_with("http://company.com/Schafer/May")
             self.assertEqual(first=schedule, second="Success")
 
