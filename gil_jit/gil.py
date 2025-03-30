@@ -42,6 +42,9 @@ def multi_threaded_compute(num_list: list[int]):
     for num in num_list:
         thread = threading.Thread(target=compute_factorial, args=(num,))
         threads.append(thread)
+
+    # Start the threads
+    for thread in threads:
         thread.start()
 
     # Wait for the threads to finish
@@ -60,6 +63,9 @@ def multi_processing_compute(num_list: list[int]):
     for num in num_list:
         process = multiprocessing.Process(target=compute_factorial, args=(num,))
         processes.append(process)
+
+    # Start the processes
+    for process in processes:
         process.start()
 
     # Wait for the processes to finish
