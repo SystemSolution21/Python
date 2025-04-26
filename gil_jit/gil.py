@@ -1,16 +1,20 @@
+from typing import Callable, Any
 import sys
 import sysconfig
 import math
 import time
 import threading
 import multiprocessing
+import functools
 
 
 # Execution time decorator
-def timeit(func):
-    def wrapper(*args, **kwargs):
+def timeit(func) -> Callable[..., Any | int]:
+
+    @functools.wraps(wrapped=func)
+    def wrapper(*args, **kwargs) -> Any | int:
         start_time: float = time.time()
-        result = func(*args, **kwargs)
+        result: int = func(*args, **kwargs)
         end_time: float = time.time()
         execution_time: float = end_time - start_time
         print(f"Execution time of {func.__name__}: {execution_time:.3f} seconds")
@@ -20,13 +24,13 @@ def timeit(func):
 
 
 # Compute Factorial
-def compute_factorial(n):
+def compute_factorial(n) -> int:
     return math.factorial(n)
 
 
 # Single Threaded
 @timeit
-def single_threaded_compute(num_list: list[int]):
+def single_threaded_compute(num_list: list[int]) -> None:
     for num in num_list:
         compute_factorial(num)
 
@@ -35,7 +39,7 @@ def single_threaded_compute(num_list: list[int]):
 
 # Multi Threaded
 @timeit
-def multi_threaded_compute(num_list: list[int]):
+def multi_threaded_compute(num_list: list[int]) -> None:
     threads: list[threading.Thread] = []
 
     # Create threads
@@ -56,7 +60,7 @@ def multi_threaded_compute(num_list: list[int]):
 
 # Multi Processing
 @timeit
-def multi_processing_compute(num_list: list[int]):
+def multi_processing_compute(num_list: list[int]) -> None:
     processes: list[multiprocessing.Process] = []
 
     # Create processes
@@ -101,6 +105,10 @@ def main() -> None:
 
     # Execute Multi Process
     multi_processing_compute(num_list=num_list)
+
+    print(single_threaded_compute.__name__)
+    print(multi_threaded_compute.__name__)
+    print(multi_processing_compute.__name__)
 
 
 if __name__ == "__main__":
