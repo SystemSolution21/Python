@@ -9,3 +9,6 @@ poetry.lock
 
 # VSCode
 .vscode
+
+# Pytest Cache
+.pytest_cache
