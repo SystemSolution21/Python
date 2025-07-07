@@ -10,7 +10,7 @@ async def chat_handler(websocket) -> None:
     """Handles an incoming websocket connection.
 
     Registers the new client, listens for incoming messages, and broadcasts
-    them to all other connected clients. Unregisters the client upon
+    them to all other connected clients. Un-registers the client upon
     disconnection.
 
     Args:
