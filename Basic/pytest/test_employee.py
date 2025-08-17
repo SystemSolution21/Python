@@ -1,4 +1,5 @@
 from typing import Callable, Generator
+
 import pytest
 from employee import Employee
 from pytest_mock import MockerFixture

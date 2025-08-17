@@ -30,7 +30,7 @@ class Employee:
     def monthly_schedule(self, month) -> str:
         """Employee monthly schedule"""
         response: requests.Response = requests.get(
-            url=f"http://company.com/{self.lname}/{month}"
+            f"http://company.com/{self.lname}/{month}"
         )
         if response.ok:
             return response.text

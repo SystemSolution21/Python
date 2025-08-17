@@ -29,7 +29,3 @@ class Employee:
             return response.text
         else:
             return "Bad Response!"
-
-
-if __name__ == "__main__":
-    pass

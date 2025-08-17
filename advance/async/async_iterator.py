@@ -1,3 +1,5 @@
+"""Asynchronous Iterator"""
+
 import asyncio
 from typing import Self
 
