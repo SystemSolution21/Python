@@ -12,3 +12,9 @@ poetry.lock
 
 # Pytest Cache
 .pytest_cache
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints
+
+# Users
+users.db

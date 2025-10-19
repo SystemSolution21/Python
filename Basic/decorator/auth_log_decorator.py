@@ -1,10 +1,14 @@
-from typing import Any, Callable
-import sqlite3
-from sqlite3 import Connection, Cursor
+# auth_log_decorator.py
+"""
+This script demonstrates the use of decorators for authentication and logging.
+"""
+
 import logging
+import sqlite3
 from functools import wraps
 from pathlib import Path
-
+from sqlite3 import Connection, Cursor
+from typing import Any, Callable
 
 # Create database file
 db_file: Path = Path(__file__).parent / "users.db"
@@ -45,7 +49,6 @@ def authenticate(func) -> Callable[..., Any]:
 
     @wraps(wrapped=func)
     def wrapper(user_id, *args, **kwargs) -> Any:
-
         # Connect to database
         conn: Connection = sqlite3.connect(database=db_file)
         cursor: Cursor = conn.cursor()
