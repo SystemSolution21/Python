@@ -11,6 +11,7 @@ pipe = "^2.2"
 requests = "^2.32.3"
 ipykernel = "^6.29.5"
 websockets = "^15.0.1"
+fpdf = "^1.7.2"
 
 
 [tool.poetry.group.test.dependencies]
