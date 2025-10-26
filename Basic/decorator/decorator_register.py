@@ -3,6 +3,7 @@
 This script demonstrates the use of decorators for registering exporters.
 """
 
+# import modules
 import csv
 import io
 import json
@@ -10,15 +11,19 @@ from functools import wraps
 from pathlib import Path
 from typing import Any, Callable
 
+# import third party modules
 from fpdf import FPDF
 
+# create output directory
 current_dir: Path = Path(__file__).parent
 output_dir: Path = current_dir / "output"
 output_dir.mkdir(parents=True, exist_ok=True)
 
+# type hinting
 type Data = list[dict[str, Any]]
 type ExportFunc = Callable[[Data], None]
 
+# Register exporters
 exporters: dict[str, ExportFunc] = {}
 
 
