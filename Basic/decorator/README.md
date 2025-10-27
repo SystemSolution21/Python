@@ -46,3 +46,29 @@ Output:
 - Access Denied
 - WARNING - User ID 303 does not exist.
 - User does not exist
+
+## decorator_register.py: Registering Exporters
+
+This script demonstrates the use of decorators for registering exporters.
+
+The script uses a decorator factory function register_exporter to register exporters. The decorator factory function takes a format as an argument and returns a decorator. The decorator takes a function as an argument and returns a wrapper function. The wrapper function registers the function as an exporter for the given format.
+
+Execution Flow:
+
+- The register_exporter decorator factory function is called with the format as an argument.
+- The decorator factory function returns a decorator.
+- The decorator is applied to the exporter function.
+- The wrapper function registers the exporter function as an exporter for the given format.
+- The exporter function is called when the export_data function is called with the given format.
+
+Oputput:
+
+- Exporting data using pdf exporter...
+- [DEBUG] Saving PDF to: C:\Users\user\Documents\GitHub\python-handbook\Basic\decorator\output\data.pdf
+- [DEBUG] Headers: ['name', 'age']
+- [DEBUG] Row 1: John | 30
+- [DEBUG] PDF export complete.
+- Exporting data using csv exporter...
+- name,age
+- John,30
+- Export complete.
