@@ -7,7 +7,7 @@ import logging
 import sqlite3
 from functools import wraps
 from pathlib import Path
-from sqlite3 import Connection, Cursor
+from sqlite3 import Cursor
 from typing import Any, Callable
 
 # Create database file
@@ -20,26 +20,34 @@ logging.basicConfig(
 )
 
 
-# Database setup
 def setup_database() -> None:
-    conn: Connection = sqlite3.connect(database=db_file)
-    cursor: Cursor = conn.cursor()
-    cursor.execute(
-        """
-        CREATE TABLE IF NOT EXISTS users (
-            user_id INTEGER PRIMARY KEY,
-            name TEXT NOT NULL,
-            authorized BOOLEAN NOT NULL
-        )
-    """
-    )
-    # Insert dummy data
-    cursor.execute("INSERT OR REPLACE INTO users VALUES (101, 'Alice', 1)")
-    cursor.execute("INSERT OR REPLACE INTO users VALUES (202, 'Bob', 0)")
-    conn.commit()
-    conn.close()
+    """Setup database."""
+    try:
+        with sqlite3.connect(database=db_file) as conn:
+            cursor: Cursor = conn.cursor()
+            cursor.execute(
+                """
+                CREATE TABLE IF NOT EXISTS users (
+                    user_id INTEGER PRIMARY KEY,
+                    name TEXT NOT NULL,
+                    authorized BOOLEAN NOT NULL
+                )
+            """
+            )
+            # Insert dummy data
+            records: list[tuple[int, str, int]] = [
+                (101, "Alice", 1),
+                (202, "Bob", 0),
+            ]
+            cursor.executemany("INSERT OR REPLACE INTO users VALUES (?, ?, ?)", records)
+            conn.commit()
+            cursor.close()
+            logging.info("Database setup complete.")
+    except sqlite3.Error as e:
+        logging.error(f"Error creating database: {e}")
 
 
+# Setup database
 setup_database()
 
 
@@ -49,20 +57,26 @@ def authenticate(func) -> Callable[..., Any]:
 
     @wraps(wrapped=func)
     def wrapper(user_id, *args, **kwargs) -> Any:
-        # Connect to database
-        conn: Connection = sqlite3.connect(database=db_file)
-        cursor: Cursor = conn.cursor()
-        cursor.execute("SELECT authorized FROM users WHERE user_id = ?", (user_id,))
-        user: Any = cursor.fetchone()
-        conn.close()
+        try:
+            # Connect to database
+            with sqlite3.connect(database=db_file) as conn:
+                cursor: Cursor = conn.cursor()
+                cursor.execute(
+                    "SELECT authorized FROM users WHERE user_id = ?", (user_id,)
+                )
+                user: Any = cursor.fetchone()
+                cursor.close()
 
-        if not user:
-            logging.warning(msg=f"User ID {user_id} does not exist.")
-            return "User does not exist"
-        if not user[0]:
-            logging.warning(f"Unauthorized access attempt by user {user_id}")
-            return "Access Denied"
-        return func(user_id, *args, **kwargs)
+                if not user:
+                    logging.warning(msg=f"User ID {user_id} does not exist.")
+                    return "User does not exist"
+                if not user[0]:
+                    logging.warning(f"Unauthorized access attempt by user {user_id}")
+                    return "Access Denied"
+                return func(user_id, *args, **kwargs)
+        except sqlite3.Error as e:
+            logging.error(f"Error accessing database: {e}")
+            return "Error accessing database"
 
     return wrapper
 
@@ -84,14 +98,17 @@ def log_access(func) -> Callable[..., Any]:
 @log_access
 def view_profile(user_id) -> str:
     """Returns the profile of a given user."""
-
-    # Connect to database
-    conn: Connection = sqlite3.connect(database=db_file)
-    cursor: Cursor = conn.cursor()
-    cursor.execute("SELECT name FROM users WHERE user_id = ?", (user_id,))
-    user: Any = cursor.fetchone()
-    conn.close()
-    return f"Profile of user {user_id}: {user[0]}"
+    try:
+        # Connect to database
+        with sqlite3.connect(database=db_file) as conn:
+            cursor: Cursor = conn.cursor()
+            cursor.execute("SELECT name FROM users WHERE user_id = ?", (user_id,))
+            user: Any = cursor.fetchone()
+            cursor.close()
+        return f"Profile of user {user_id}: {user[0]}"
+    except Exception as e:
+        logging.error(f"Error accessing profile: {e}")
+        return "Error accessing profile"
 
 
 # Usage
