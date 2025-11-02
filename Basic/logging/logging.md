@@ -12,3 +12,7 @@ The basic configuration for logging can be done using the `basicConfig` function
 - `filename`: The name of the file to log to.
 - `filemode`: The mode to open the log file in. The default is `a` (append).
 - `style`: The style of the log messages. The default is `%` (old style). The other option is `{` (new style).
+
+## Custom Logging
+
+Custom logging allows you to create multiple loggers with different configurations. This is useful when you want to log messages from different parts of your application with different levels of detail.
