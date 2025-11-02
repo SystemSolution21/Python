@@ -2,13 +2,19 @@
 import logging
 import random
 import time
+from pathlib import Path
+
+# Create log file
+log_file: Path = Path(__file__).parent / "payment.log"
 
 # Configure logging
 logging.basicConfig(
-    filename="payments.log",
+    filename=log_file,
     filemode="w",
     level=logging.DEBUG,
-    format="%(asctime)s - %(levelname)s - %(message)s",
+    # format="%(asctime)s - %(levelname)s - %(module)s - %(message)s",
+    format="{asctime} - {levelname} - {module} - {funcName} - {message}",
+    style="{",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 logger: logging.Logger = logging.getLogger(name=__name__)

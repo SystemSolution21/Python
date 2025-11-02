@@ -1,0 +1,18 @@
+2025-11-02 14:31:36 - INFO - payment - handle_order - New order received | order: Order_1 | user: User_1 | item: Item_1 | quantity: 1 | amount: 10.0
+2025-11-02 14:31:36 - DEBUG - payment - check_inventory - Checking inventory | item: Item_1 | quantity: 1
+2025-11-02 14:31:37 - INFO - payment - check_inventory - Inventory available | item: Item_1 | quantity: 1
+2025-11-02 14:31:37 - DEBUG - payment - process_payment - Processing payment | user: User_1 | amount: 10.0
+2025-11-02 14:31:38 - INFO - payment - process_payment - Payment processed | user: User_1 | amount: 10.0
+2025-11-02 14:31:38 - INFO - payment - confirm_order - Order confirmed | user: User_1 | order: Order_1 | item: Item_1 | quantity: 1 | amount: 10.0
+2025-11-02 14:31:38 - INFO - payment - handle_order - Order processed successfully | order: Order_1
+2025-11-02 14:31:38 - INFO - payment - handle_order - New order received | order: Order_2 | user: User_2 | item: Item_2 | quantity: 2 | amount: 20.0
+2025-11-02 14:31:38 - DEBUG - payment - check_inventory - Checking inventory | item: Item_2 | quantity: 2
+2025-11-02 14:31:39 - INFO - payment - check_inventory - Inventory available | item: Item_2 | quantity: 2
+2025-11-02 14:31:39 - DEBUG - payment - process_payment - Processing payment | user: User_2 | amount: 20.0
+2025-11-02 14:31:40 - WARNING - payment - process_payment - Payment gateway is slow | user: User_2
+2025-11-02 14:31:40 - INFO - payment - process_payment - Payment processed | user: User_2 | amount: 20.0
+2025-11-02 14:31:40 - INFO - payment - confirm_order - Order confirmed | user: User_2 | order: Order_2 | item: Item_2 | quantity: 2 | amount: 20.0
+2025-11-02 14:31:40 - INFO - payment - handle_order - Order processed successfully | order: Order_2
+2025-11-02 14:31:40 - INFO - payment - handle_order - New order received | order: Order_3 | user: User_3 | item: Item_3 | quantity: 3 | amount: 30.0
+2025-11-02 14:31:40 - DEBUG - payment - check_inventory - Checking inventory | item: Item_3 | quantity: 3
+2025-11-02 14:31:41 - ERROR - payment - handle_order - Order failed | Order: Order_3 | Reason: Inventory service down!
