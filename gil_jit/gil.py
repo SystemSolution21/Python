@@ -1,16 +1,15 @@
-from typing import Callable, Any
+import functools
+import math
+import multiprocessing
 import sys
 import sysconfig
-import math
-import time
 import threading
-import multiprocessing
-import functools
+import time
+from typing import Any, Callable
 
 
 # Execution time decorator
 def timeit(func) -> Callable[..., Any | int]:
-
     @functools.wraps(wrapped=func)
     def wrapper(*args, **kwargs) -> Any | int:
         start_time: float = time.time()
@@ -55,7 +54,7 @@ def multi_threaded_compute(num_list: list[int]) -> None:
     for thread in threads:
         thread.join()
 
-    print(f"multi threaded compute done.")
+    print("multi threaded compute done.")
 
 
 # Multi Processing
@@ -112,5 +111,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-
     main()
