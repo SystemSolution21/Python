@@ -16,3 +16,23 @@ The basic configuration for logging can be done using the `basicConfig` function
 ## Custom Logging
 
 Custom logging allows you to create multiple loggers with different configurations. This is useful when you want to log messages from different parts of your application with different levels of detail.
+
+## Project Structure
+
+```current directory
+├── logging
+│   ├── logs
+│   │   ├── custom_logging.log
+│   │   ├── errors.log
+│   │   ├── payment.log
+│   │   ├── root_logging.log
+│   │   └── slack_warnings.log
+│   ├── src
+│   │   ├── __init__.py
+│   │   ├── custom_logging.py
+│   │   ├── filter_examples.py
+│   │   └── payment.py
+│   ├── FILTER_BEST_PRACTICES.md
+│   ├── logging.md
+│   └── .env
+```

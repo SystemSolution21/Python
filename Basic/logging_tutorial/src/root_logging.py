@@ -8,7 +8,7 @@ import logging
 from pathlib import Path
 
 # Create log file
-log_file: Path = Path(__file__).parent / "root_logging.log"
+log_file: Path = Path(__file__).parent.parent / "logs" / "root_logging.log"
 
 # Configure logging
 logging.basicConfig(

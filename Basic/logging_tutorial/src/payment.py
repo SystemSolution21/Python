@@ -5,7 +5,7 @@ import time
 from pathlib import Path
 
 # Create log file
-log_file: Path = Path(__file__).parent / "payment.log"
+log_file: Path = Path(__file__).parent.parent / "logs" / "payment.log"
 
 # Configure logging
 logging.basicConfig(

@@ -22,9 +22,9 @@ load_dotenv()
 LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO").upper()
 
 # Create log files
-log_file: Path = Path(__file__).parent / "custom_logging.log"
-error_file: Path = Path(__file__).parent / "errors.log"
-slack_file: Path = Path(__file__).parent / "slack_warnings.log"
+log_file: Path = Path(__file__).parent.parent / "logs" / "custom_logging.log"
+error_file: Path = Path(__file__).parent.parent / "logs" / "errors.log"
+slack_file: Path = Path(__file__).parent.parent / "logs" / "slack_warnings.log"
 
 
 # ============================================================================

@@ -1,8 +1,0 @@
-2025-11-10 13:37:48 - DEBUG - custom_logging - [User:N/A] [Req:N/A] - Just checking in!
-2025-11-10 13:37:48 - INFO - custom_logging - [User:N/A] [Req:N/A] - All is well!
-2025-11-10 13:37:48 - WARNING - custom_logging - [User:N/A] [Req:N/A] - Stay curious!
-2025-11-10 13:37:48 - ERROR - custom_logging - [User:N/A] [Req:N/A] - Stay put!
-2025-11-10 13:37:48 - INFO - custom_logging - [User:user123] [Req:req-001] - User logged in
-2025-11-10 13:37:48 - WARNING - custom_logging - [User:user456] [Req:req-002] - High memory usage detected
-2025-11-10 13:37:48 - ERROR - custom_logging - [User:system] [Req:req-003] - Database connection failed!
-2025-11-10 13:37:48 - CRITICAL - custom_logging - [User:system] [Req:req-004] - System shutdown imminent!

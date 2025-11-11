@@ -1,0 +1,11 @@
+2025-11-11 14:44:57 - DEBUG - root_logging - This is a debug message
+2025-11-11 14:44:57 - INFO - root_logging - This is an info message
+2025-11-11 14:44:57 - WARNING - root_logging - This is a warning message
+2025-11-11 14:44:57 - ERROR - root_logging - This is an error message
+2025-11-11 14:44:57 - CRITICAL - root_logging - This is a critical message
+2025-11-11 14:44:57 - ERROR - root_logging - Donuts calculation error!
+Traceback (most recent call last):
+  File "path_to_file\logging\src\root_logging.py", line 51, in calculate_donuts
+    donuts_per_person: int = int(donuts / people)
+                                 ~~~~~~~^~~~~~~~
+ZeroDivisionError: division by zero

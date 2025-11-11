@@ -302,22 +302,23 @@ if user_id:
 
 ## Quick Start
 
-1. Set up `.env`:
+1.Set up `.env`:
 
 ```bash
    LOG_LEVEL=DEBUG
    ENVIRONMENT=development
 ```
 
-2. Run the examples:
+2.Run the examples:
 
 ```bash
    python custom_logging.py
    python filter_examples.py
 ```
 
-3. Observe different log outputs in:
-   - Console (filtered)
-   - `custom_logging.log` (keyword filtered)
-   - `errors.log` (errors only)
-   - `slack_warnings.log` (warnings only)
+3.Observe different log outputs in:
+
+- Console (filtered)
+- `custom_logging.log` (keyword filtered)
+- `errors.log` (errors only)
+- `slack_warnings.log` (warnings only)
