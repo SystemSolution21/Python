@@ -1,0 +1,25 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "pytest-tutorial"
+version = "0.1.0"
+description = "Standalone pytest tutorial package"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "src"}] # tells poetry to include src/ in the package
+
+[tool.poetry.dependencies]
+python = "^3.12"
+requests = "^2.32.3"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.3.4"
+pytest-mock = "^3.14.0"
+
+[tool.pytest.ini_options]
+pythonpath = "."
+addopts = [
+    "--import-mode=importlib",
+]

@@ -1,8 +1,8 @@
 from typing import Callable, Generator
 
 import pytest
-from employee import Employee
 from pytest_mock import MockerFixture
+from src.employee import Employee
 
 
 class TestEmployee:
@@ -68,7 +68,7 @@ class TestEmployee:
     ) -> None:
         """Test monthly_schedule method with a successful response"""
         # Configure the mock
-        mock_get = mocker.patch("employee.requests.get")
+        mock_get = mocker.patch("src.employee.requests.get")
         mock_get.return_value.ok = True
         mock_get.return_value.text = "Success Schedule"
 
@@ -86,7 +86,7 @@ class TestEmployee:
     ) -> None:
         """Test monthly_schedule method with a failed response"""
         # Configure the mock
-        mock_get = mocker.patch("employee.requests.get")
+        mock_get = mocker.patch("src.employee.requests.get")
         mock_get.return_value.ok = False
 
         # Call the method
