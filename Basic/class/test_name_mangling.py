@@ -1,30 +1,41 @@
-import unittest
-from name_mangling import Mapping, MappingSubclass
+import pytest
+from name_mangling import BaseService, SpecializedService
 
 
-class TestMapping(unittest.TestCase):
-
-    def test_init(self) -> None:
-        m = Mapping(iterable=[1, 2, 3])
-        self.assertEqual(first=m.item_list, second=[1, 2, 3])
-
-    def test_update(self) -> None:
-        m = Mapping(iterable=[])
-        m.update(iterable=[4, 5, 6])
-        self.assertEqual(first=m.item_list, second=[4, 5, 6])
+@pytest.fixture
+def base_service():
+    """Fixture for a standard BaseService instance."""
+    return BaseService(settings=["init_1", "init_2"])
 
 
-class TestMappingSubclass(unittest.TestCase):
-
-    def test_init(self) -> None:
-        ms = MappingSubclass(iterable=[1, 2, 3])
-        self.assertEqual(first=ms.item_list, second=[1, 2, 3])
-
-    def test_update(self) -> None:
-        ms = MappingSubclass(iterable=[])
-        ms.update(keys=[1, 2, 3], values=["a", "b", "c"])
-        self.assertEqual(first=ms.item_list, second=[(1, "a"), (2, "b"), (3, "c")])
+@pytest.fixture
+def specialized_service():
+    """Fixture for a SpecializedService instance."""
+    return SpecializedService(settings=["init_1", "init_2"])
 
 
-if __name__ == "__main__":
-    unittest.main()
+def test_base_service_initialization(base_service: BaseService):
+    """Verifies that BaseService correctly uppercases initial settings."""
+    assert base_service.active_config == ["INIT_1", "INIT_2"]
+
+
+def test_base_service_configure(base_service: BaseService):
+    """Verifies that subsequent calls to configure append uppercased strings."""
+    base_service.configure(settings=["new_setting"])
+    assert base_service.active_config == ["INIT_1", "INIT_2", "NEW_SETTING"]
+
+
+def test_specialized_service_initialization(specialized_service: SpecializedService):
+    """
+    CRITICAL TEST: Verifies name mangling works.
+    Even though SpecializedService overrides 'configure' with an incompatible
+    signature, the __init__ call (via BaseService) should still work.
+    """
+    assert specialized_service.active_config == ["INIT_1", "INIT_2"]
+
+
+def test_specialized_service_configure(specialized_service: SpecializedService):
+    """Verifies that the specialized 2-argument configure works as expected."""
+    specialized_service.configure(key="timeout", value="30s")
+    # Note: Specialized override does NOT uppercase, unlike the base class.
+    assert specialized_service.active_config == ["INIT_1", "INIT_2", "timeout:30s"]
