@@ -37,7 +37,7 @@ def main():
     try:
         result = divide(10, 0)
         print(f"Result: {result}")
-    except Exception as error:
+    except (ValueError, APIError) as error:
         # Narrowing the 'error' variable
         assert_is_error(error)
 
