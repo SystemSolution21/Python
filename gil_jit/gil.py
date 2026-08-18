@@ -105,10 +105,6 @@ def main() -> None:
     # Execute Multi Process
     multi_processing_compute(num_list=num_list)
 
-    print(single_threaded_compute.__name__)
-    print(multi_threaded_compute.__name__)
-    print(multi_processing_compute.__name__)
-
 
 if __name__ == "__main__":
     main()
