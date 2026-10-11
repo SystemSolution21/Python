@@ -11,10 +11,15 @@ AAABCCDDDD
 A3B1C2D4"""
 
 import sys
+from typing import Any
 
-input_data = sys.stdin.read().strip()
+input_data: str | Any = sys.stdin.read().strip()
 
-if input_data.isalpha():
+
+def main() -> None:
+    if not input_data.isalpha():
+        return
+
     result: list[str] = []
     count = 1
     for i in range(1, len(input_data)):
@@ -27,3 +32,7 @@ if input_data.isalpha():
     result.append(input_data[-1] + str(count))
 
     print("".join(result))
+
+
+if __name__ == "__main__":
+    main()
