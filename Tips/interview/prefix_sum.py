@@ -27,7 +27,7 @@ def main() -> None:
     if not input_data:
         return
 
-    # 2. Parse variables and arrays based on the problem statement
+    # 2. Parse variables and arrays
     N = int(input_data[0])
     Q = int(input_data[1])
     A: list[int] = [int(x) for x in input_data[2 : 2 + N]]
@@ -48,7 +48,7 @@ def main() -> None:
         ans = P[right] - P[left - 1]
         results.append(str(ans))
 
-    # 4. Print all results joined by newlines at the very end
+    # 4. Print all results joined by newlines
     print("\n".join(results))
 
 
