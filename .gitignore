@@ -18,3 +18,8 @@ poetry.lock
 
 # Users
 users.db
+
+tutorial.egg-info
+
+# practice
+practice.py
