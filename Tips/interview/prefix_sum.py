@@ -28,25 +28,25 @@ def main() -> None:
         return
 
     # 2. Parse variables and arrays
-    N = int(input_data[0])
-    Q = int(input_data[1])
-    A: list[int] = [int(x) for x in input_data[2 : 2 + N]]
+    num_item = int(input_data[0])
+    queries = int(input_data[1])
+    array: list[int] = [int(x) for x in input_data[2 : 2 + num_item]]
 
     # Compute Prefix Sum
-    P: list[int] = [0] * (N + 1)
-    for i in range(N):
-        P[i + 1] = P[i] + A[i]
+    prefix_sum: list[int] = [0] * (num_item + 1)
+    for i in range(num_item):
+        prefix_sum[i + 1] = prefix_sum[i] + array[i]
 
     # 3. Process queries and accumulate outputs
-    query_idx = 2 + N
+    query_idx = 2 + num_item
     results: list[str] = []
-    for _ in range(Q):
+    for _ in range(queries):
         left = int(input_data[query_idx])
         right = int(input_data[query_idx + 1])
         query_idx += 2
 
-        ans = P[right] - P[left - 1]
-        results.append(str(ans))
+        query_ans = prefix_sum[right] - prefix_sum[left - 1]
+        results.append(str(query_ans))
 
     # 4. Print all results joined by newlines
     print("\n".join(results))
