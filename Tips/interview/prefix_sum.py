@@ -23,33 +23,33 @@ from typing import Any
 
 def main() -> None:
     # 1. Read all input data from standard input
-    input_data: list[str] | Any = sys.stdin.read().split()
-    if not input_data:
+    data: list[str] | Any = sys.stdin.read().split()
+    if not data:
         return
 
     # 2. Parse variables and arrays
-    num_item = int(input_data[0])
-    queries = int(input_data[1])
-    array: list[int] = [int(x) for x in input_data[2 : 2 + num_item]]
+    items = int(data[0])
+    queries = int(data[1])
+    array: list[int] = [int(x) for x in data[2 : 2 + items]]
 
     # Compute Prefix Sum
-    prefix_sum: list[int] = [0] * (num_item + 1)
-    for i in range(num_item):
+    prefix_sum: list[int] = [0] * (items + 1)
+    for i in range(items):
         prefix_sum[i + 1] = prefix_sum[i] + array[i]
 
     # 3. Process queries and accumulate outputs
-    query_idx = 2 + num_item
-    results: list[str] = []
+    idx = 2 + items
+    queries_results: list[str] = []
     for _ in range(queries):
-        left = int(input_data[query_idx])
-        right = int(input_data[query_idx + 1])
-        query_idx += 2
+        left = int(data[idx])
+        right = int(data[idx + 1])
+        idx += 2
 
-        query_ans = prefix_sum[right] - prefix_sum[left - 1]
-        results.append(str(query_ans))
+        sum = prefix_sum[right] - prefix_sum[left - 1]
+        queries_results.append(str(sum))
 
-    # 4. Print all results joined by newlines
-    print("\n".join(results))
+    # 4. Print all queries results joined by newlines
+    print("\n".join(queries_results))
 
 
 if __name__ == "__main__":
