@@ -13,25 +13,46 @@ A3B1C2D4"""
 import sys
 from typing import Any
 
-input_data: str | Any = sys.stdin.read().strip()
 
+def run_length_encoding(input_data: str) -> str:
+    """Run-Length Encodingを行う関数
 
-def main() -> None:
+    Args:
+        input_data (str): 圧縮対象の文字列
+
+    Returns:
+        str: 圧縮後の文字列
+    """
+
+    # 入力がアルファベット以外の場合は処理を終了する
     if not input_data.isalpha():
-        return
+        return "入力はアルファベットのみを含む必要があります!"
 
-    result: list[str] = []
+    # 圧縮処理
+    compress: list[str] = []
     count = 1
     for i in range(1, len(input_data)):
+        # 同じ文字が連続している場合はカウントを増やす
         if input_data[i] == input_data[i - 1]:
             count += 1
         else:
-            result.append(input_data[i - 1] + str(count))
+            # 異なる文字が出てきた場合は、前の文字とカウントを圧縮リストに追加
+            compress.append(input_data[i - 1] + str(count))
             count = 1
+    # 最後の文字とカウントを圧縮リストに追加
+    compress.append(input_data[-1] + str(count))
+    # 圧縮リストを結合して文字列として返す
+    return "".join(compress)
 
-    result.append(input_data[-1] + str(count))
 
-    print("".join(result))
+def main() -> None:
+    """メイン関数"""
+    # 標準入力から文字列を読み込む
+    input_data: str | Any = sys.stdin.readline().strip()
+    # 文字列を圧縮する
+    result: str = run_length_encoding(input_data)
+    # 圧縮後の文字列を出力する
+    print(result)
 
 
 if __name__ == "__main__":
