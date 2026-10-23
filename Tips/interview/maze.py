@@ -50,7 +50,7 @@ def parse_implicit_maze(input_data: str) -> tuple[int, int, list[list[int]]]:
     lines: list[str] = input_data.splitlines()
 
     # Filter out any accidental empty lines
-    lines: list[str] = [line.strip() for line in lines if line.strip()]
+    lines: list[str] = [line.strip() for line in lines]
 
     if not lines:
         return 0, 0, []
@@ -58,22 +58,22 @@ def parse_implicit_maze(input_data: str) -> tuple[int, int, list[list[int]]]:
     # Height is simply the number of rows
     H: int = len(lines)
 
-    # Parse the maze and infer Width from the first row length
-    maze: list[list[int]] = []
+    # Parse the maze grid and infer Width from the first row length
+    grid: list[list[int]] = []
     for line in lines:
         # Handles space-separated (e.g., "0 0 1") or packed (e.g., "001")
         row: list[int] = (
             [int(x) for x in line.split()] if " " in line else [int(c) for c in line]
         )
-        maze.append(row)
+        grid.append(row)
 
-    W: int = len(maze[0]) if maze else 0
+    W: int = len(grid[0]) if grid else 0
 
-    return H, W, maze
+    return H, W, grid
 
 
 def parse_maze(input_data: str) -> tuple[int, int, list[list[int]]]:
-    """Parse the input data for the maze problem.
+    """Parse the input data for the maze.
 
     args:
         input_data (str): 標準入力から読み込んだ迷路のデータ
@@ -89,7 +89,7 @@ def parse_maze(input_data: str) -> tuple[int, int, list[list[int]]]:
     if not tokens:
         return 0, 0, []
 
-    # 迷路の高さ・幅・グリッド
+    # 迷路の高さ・幅・トークン
     try:
         H, W = int(tokens[0]), int(tokens[1])
     except (IndexError, ValueError):
@@ -97,13 +97,22 @@ def parse_maze(input_data: str) -> tuple[int, int, list[list[int]]]:
 
     maze_tokens: list[str] = tokens[2 : 2 + H]
 
-    if H > 0 and W > 0 and len(maze_tokens) == H and len(maze_tokens[0]) == W:
-        grid: list[list[int]] = [
-            [int(char) for char in row_str] for row_str in maze_tokens
-        ]
-        return H, W, grid
+    # Check Height(Number of rows)
+    if len(maze_tokens) != H:
+        raise ValueError(
+            f"Input Error: Expected {H} rows of maze data, but only found {len(maze_tokens)}."
+        )
+    # Convert maze tokens row string to integer list
+    grid: list[list[int]] = [[int(char) for char in row_str] for row_str in maze_tokens]
 
-    return parse_implicit_maze(input_data)
+    # Check Width(Number of columns)
+    for r_idx, row in enumerate(grid):
+        if len(row) != W:
+            raise ValueError(
+                f"Input Error: Row {r_idx} has length {len(row)}, but W is defined as {W}."
+            )
+
+    return H, W, grid
 
 
 def shortest_path_maze(H: int, W: int, grid: list[list[int]]) -> int:
@@ -117,6 +126,14 @@ def shortest_path_maze(H: int, W: int, grid: list[list[int]]) -> int:
     Returns:
         int: The length of the shortest path from (0, 0) to (H-1, W-1), or -1 if unreachable.
     """
+
+    # Invalid maze grid dimension
+    if H <= 0 or W <= 0 or not grid:
+        return -1
+
+    # No path track is possible
+    if grid[0][0] == 1 or grid[H - 1][W - 1] == 1:
+        return -1
 
     # Distance table to track visited cells and minimum steps (-1 means unvisited)
     dist: list[list[int]] = [[-1] * W for _ in range(H)]
@@ -153,13 +170,17 @@ def main() -> None:
         return
 
     # 迷路のデータを解析して高さ、幅、グリッドを取得する
-    H, W, grid = parse_maze(input_data)
+    try:
+        H, W, grid = parse_maze(input_data)
 
-    # 迷路の最短経路を計算する
-    result: int = shortest_path_maze(H, W, grid)
+        # 迷路の最短経路を計算する
+        result: int = shortest_path_maze(H, W, grid)
 
-    # 最短経路の長さを出力する
-    print(result)
+        # 最短経路の長さを出力する
+        print(result)
+
+    except ValueError as e:
+        print(e)
 
 
 if __name__ == "__main__":
